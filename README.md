@@ -1,4 +1,4 @@
-# more-functools
+# better-functools
 Improving functional programming ergonomics in Python.
 
 The library introduces 2 different operators for use with functions:
@@ -26,7 +26,7 @@ So `Pipeline(v) | fn` is equal to `Pipeline(fn(v))`.
 
 
 ### `apply`
-`more_functools.apply` includes a number of functions that implements `@`.
+`better_functools.apply` includes a number of functions that implements `@`.
 
 For example, `map @ bind(prod)` means bind `prod` to the first arg of `map`.
 More apply functions can be called directly too, the above expression is equivalent to

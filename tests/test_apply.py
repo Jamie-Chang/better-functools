@@ -3,7 +3,7 @@ from typing import Any, Callable, assert_type
 
 import pytest
 
-from more_functools.apply import apply, bind, compose, func, invoke, nvl, star_args, static
+from better_functools.apply import apply, bind, compose, func, invoke, nvl, star_args, static
 
 
 def mul(a: int, b: int) -> int:

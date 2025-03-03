@@ -39,7 +39,7 @@ Ts = TypeVarTuple("Ts")
 class apply(Generic[T_APPLY]):
     """Make a function callable by using `@` operator.
 
-    This is the `@` version of `... | fn` in `more_functools.pipe.Composition`.
+    This is the `@` version of `... | fn` in `better_functools.pipe.Composition`.
 
     >>> "1234" @ apply(int)
     1234
@@ -85,7 +85,7 @@ class bind(Generic[T]):
 class compose(Generic[T, R]):
     """Compose functions.
 
-    This is similar to `more_functools.pipe.Composition`,
+    This is similar to `better_functools.pipe.Composition`,
     but allows it to be done with `@`.
 
     >>> def add(x: int, y: int) -> int:
@@ -110,7 +110,7 @@ class compose(Generic[T, R]):
 class star_args:
     """Convert a function with positional args to one that takes a single tuple.
 
-    This is useful when used with `more_functools.pipe.Pipeline`.
+    This is useful when used with `better_functools.pipe.Pipeline`.
 
     >>> def add(x: int, y: int) -> int:
     ...     return x + y

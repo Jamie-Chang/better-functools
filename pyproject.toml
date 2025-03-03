@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "more-functools"
+name = "better-functools"
 version = "0.1.0"
 authors = [{ name = 'Jamie Chang', email = 'jamie.cheng.chang@gmail.com' }]
 maintainers = [{ name = 'Jamie Chang', email = 'jamie.cheng.chang@gmail.com' }]
@@ -24,7 +24,7 @@ classifiers = [
 ]
 
 [project.urls]
-HomePage = "https://github.com/Jamie-Chang/more-functools"
+HomePage = "https://github.com/Jamie-Chang/better-functools"
 
 
 [dependency-groups]

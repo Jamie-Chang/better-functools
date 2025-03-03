@@ -2,10 +2,10 @@ import itertools
 from math import prod
 from typing import Iterable
 
-from more_functools.apply import bind, compose, func
-from more_functools.pipe import Pipeline
-from more_functools.strict.builtins import filter, map, sum
-from more_functools.strict.operator import eq
+from better_functools.apply import bind, compose, func
+from better_functools.pipe import Pipeline
+from better_functools.strict.builtins import filter, map, sum
+from better_functools.strict.operator import eq
 
 
 def part1(inputs: Iterable[int]) -> int:

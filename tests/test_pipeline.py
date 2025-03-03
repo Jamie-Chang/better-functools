@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from more_functools.pipe import Composition, Pipeline
+from better_functools.pipe import Composition, Pipeline
 
 
 @dataclass
