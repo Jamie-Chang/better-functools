@@ -1,5 +1,4 @@
-# more-functools
-Improving functional programming ergonomics in Python.
+"""More functools improves functional programming ergonomics in Python
 
 The library introduces 2 different operators for use with functions:
 - `|` which we'll call "pipe"
@@ -72,3 +71,4 @@ bind keyword arguments right now.
 ```python
 partial(itertools.combinations, r=2)
 ```
+"""
