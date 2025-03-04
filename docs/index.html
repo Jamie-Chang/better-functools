@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.5">
 <title>better_functools API documentation</title>
-<meta name="description" content="More functools improves functional programming ergonomics in Python …">
+<meta name="description" content="Better functools improves functional programming ergonomics in Python …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -36,7 +36,11 @@ el.replaceWith(d);
 <h1 class="title">Package <code>better_functools</code></h1>
 </header>
 <section id="section-intro">
-<p>More functools improves functional programming ergonomics in Python</p>
+<p>Better functools improves functional programming ergonomics in Python</p>
+<h2 id="installation">Installation</h2>
+<pre><code>$ pip install better-functools
+</code></pre>
+<h2 id="background">Background</h2>
 <p>The library introduces 2 different operators for use with functions:
 - <code>|</code> which we'll call "pipe"
 - <code>@</code> which we'll call "apply"</p>
@@ -118,9 +122,13 @@ bind keyword arguments right now.</p>
 <nav id="sidebar">
 <div class="toc">
 <ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#background">Background</a><ul>
 <li><a href="#pipe">pipe</a></li>
 <li><a href="#apply">apply</a></li>
 <li><a href="#putting-and-together">Putting @ and | together</a></li>
+</ul>
+</li>
 <li><a href="#general-tips">General Tips</a><ul>
 <li><a href="#type-checking">Type Checking</a></li>
 <li><a href="#functoolspartial">functools.partial</a></li>
