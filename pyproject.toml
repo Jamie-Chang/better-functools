@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "better-functools"
-version = "0.1.0"
+version = "0.2.0"
 authors = [{ name = 'Jamie Chang', email = 'jamie.cheng.chang@gmail.com' }]
 maintainers = [{ name = 'Jamie Chang', email = 'jamie.cheng.chang@gmail.com' }]
 description = "Functional Programming Ergonomics in Python."

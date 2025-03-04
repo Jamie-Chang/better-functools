@@ -1,5 +1,12 @@
 # better-functools
-Improving functional programming ergonomics in Python.
+Better functools improves functional programming ergonomics in Python
+
+## Installation
+```
+$ pip install better-functools
+```
+
+## Background
 
 The library introduces 2 different operators for use with functions:
 - `|` which we'll call "pipe"

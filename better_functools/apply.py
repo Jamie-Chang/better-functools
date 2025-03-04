@@ -107,16 +107,7 @@ class compose(Generic[T, R]):
 
 
 @singleton
-class star_args:
-    """Convert a function with positional args to one that takes a single tuple.
-
-    This is useful when used with `better_functools.pipe.Pipeline`.
-
-    >>> def add(x: int, y: int) -> int:
-    ...     return x + y
-    >>> (add @ star_args)((1, 2))
-    """
-
+class _star_args:
     def __call__(self, fn: Callable[[Unpack[Ts]], R]) -> Callable[[tuple[Unpack[Ts]]], R]:
         def _fn(args: tuple[Unpack[Ts]]) -> R:
             return fn(*args)
@@ -124,6 +115,17 @@ class star_args:
         return _fn
 
     __rmatmul__ = __call__
+
+
+star_args = _star_args
+"""Convert a function with positional args to one that takes a single tuple.
+
+This is useful when used with `better_functools.pipe.Pipeline`.
+
+>>> def add(x: int, y: int) -> int:
+...     return x + y
+>>> (add @ star_args)((1, 2))
+"""
 
 
 class invoke(Generic[Unpack[Ts]]):
@@ -148,23 +150,7 @@ class invoke(Generic[Unpack[Ts]]):
     __rmatmul__ = __call__
 
 
-@singleton
-class func:
-    """Useful for creating a partial function of an argument
-    which is not the last and not named.
-
-    Suppose we have a `fn: (a, b, c) -> d`
-    arg(fn): (b, c) -> ((a) -> d)
-
-    >>> def mod(a: int, b: int, /) -> int:
-    ...     return a % b
-    >>> is_odd = func(mod @ func.arg(int) @ bind(2)) @ compose(bool)
-    >>> is_odd @ invoke(5)
-    True
-    >>> is_odd(4)
-    False
-    """
-
+class _func:
     @dataclass
     class arg(Generic[T]):
         type_: type[T]
@@ -184,31 +170,24 @@ class func:
         return fn()
 
 
-@singleton
-class nvl:
-    """None-Coalescing function.
+func = _func()
+"""Useful for creating a partial function of an argument
+which is not the last and not named.
 
-    `nvl` is used in 2 ways.
+Suppose we have a `fn: (a, b, c) -> d`
+arg(fn): (b, c) -> ((a) -> d)
 
-    When used with `@` it checks the result of the left-hand side expression
-    and ignores further `@` operations if `None`.
+>>> def mod(a: int, b: int, /) -> int:
+...     return a % b
+>>> is_odd = func(mod @ func.arg(int) @ bind(2)) @ compose(bool)
+>>> is_odd @ invoke(5)
+True
+>>> is_odd(4)
+False
+"""
 
-    When called it cleans up the result of an `@ nvl` chain.
 
-    The operation should be used as
-
-    nvl(expr1 @ nvl @ expr2 @ nvl @ ...)
-
-    >>> def squared(n: int) -> int:
-    ...     return n * n
-    >>> def squared_or_none(v: int | None):
-    ...     return nvl(v @ nvl @ squared)
-    >>> squared_or_none(5)
-    25
-    >>> squared_or_none(None)
-    None
-    """
-
+class _nvl:
     def __call__(self, v: Self | T) -> T | None:
         if isinstance(v, type(self)):
             return None
@@ -229,6 +208,31 @@ class nvl:
             return self
 
         return left
+
+
+nvl = _nvl()
+"""None-Coalescing function.
+
+`nvl` is used in 2 ways.
+
+When used with `@` it checks the result of the left-hand side expression
+and ignores further `@` operations if `None`.
+
+When called it cleans up the result of an `@ nvl` chain.
+
+The operation should be used as
+
+nvl(expr1 @ nvl @ expr2 @ nvl @ ...)
+
+>>> def squared(n: int) -> int:
+...     return n * n
+>>> def squared_or_none(v: int | None):
+...     return nvl(v @ nvl @ squared)
+>>> squared_or_none(5)
+25
+>>> squared_or_none(None)
+None
+"""
 
 
 def static(fn: Callable[Concatenate[T, P], R]) -> Callable[P, apply[Callable[[T], R]]]:
