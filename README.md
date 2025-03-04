@@ -1,4 +1,8 @@
 # better-functools
+[![PyPI - Version](https://img.shields.io/pypi/v/better-functools)](https://pypi.org/p/better-functools)
+[![pydantic.run](https://img.shields.io/badge/Sandbox-1e293b?logo=pydantic)](https://pydantic.run/store/a075fad4d27ad9d0)
+[![Static Badge](https://img.shields.io/badge/Documentaion-blue)](https://jamie-chang.github.io/better-functools/)
+
 Better functools improves functional programming ergonomics in Python
 
 ## Installation
