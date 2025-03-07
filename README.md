@@ -4,6 +4,7 @@
 [![Static Badge](https://img.shields.io/badge/Documentaion-blue)](https://jamie-chang.github.io/better-functools/)
 
 Better functools improves functional programming ergonomics in Python
+![image](https://github.com/user-attachments/assets/3fe98d84-7667-40db-b3ab-56e0d947db8c)
 
 ## Installation
 ```
