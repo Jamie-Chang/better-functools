@@ -274,3 +274,19 @@ def static(fn: Callable[Concatenate[T, P], R]) -> Callable[P, apply[T, R]]:
         return _inner
 
     return _outer
+
+
+@apply
+def optional(fn: Callable[[T], R]) -> Callable[[T | None], R | None]:
+    """Make function handle `None`.
+
+    Useful when used in conjunction with `better_functools.pipeline.Pipeline`.
+
+    >>> def squared(n: int) -> int:
+    ...     return n * n
+    >>> None @ apply(squared @ optional) is None
+    True
+    >>> 1 @ apply(squared @ optional)
+    1
+    """
+    return ~apply(fn)

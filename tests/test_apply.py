@@ -3,7 +3,17 @@ from typing import Any, Callable, assert_type
 
 import pytest
 
-from better_functools.apply import apply, bind, compose, func, invoke, nvl, star_args, static
+from better_functools.apply import (
+    apply,
+    bind,
+    compose,
+    func,
+    invoke,
+    nvl,
+    optional,
+    star_args,
+    static,
+)
 
 
 def mul(a: int, b: int) -> int:
@@ -35,6 +45,7 @@ def fetch(v: int, return_none: bool) -> int | None:
         (lambda: assert_type({"id": 1234} @ static(dict[str, int].get)("id"), int | None), 1234),
         (lambda: assert_type({"a": 1}.get("b") @ ~apply(add @ bind(1)), int | None), None),
         (lambda: assert_type({"a": 1}.get("a") @ ~apply(add @ bind(1)), int | None), 2),
+        (lambda: assert_type({"a": 1}.get("a") @ apply(add @ bind(1) @ optional), int | None), 2),
     ],
 )
 def test_expressions(expression: Callable[[], Any], expected: Any) -> None:
