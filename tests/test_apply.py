@@ -33,6 +33,8 @@ def fetch(v: int, return_none: bool) -> int | None:
         (lambda: assert_type(mod @ star_args @ invoke((3, 2)), int), 1),
         (lambda: assert_type(add @ compose(mul @ bind(2)) @ invoke(1, 2), int), 6),
         (lambda: assert_type({"id": 1234} @ static(dict[str, int].get)("id"), int | None), 1234),
+        (lambda: assert_type({"a": 1}.get("b") @ ~apply(add @ bind(1)), int | None), None),
+        (lambda: assert_type({"a": 1}.get("a") @ ~apply(add @ bind(1)), int | None), 2),
     ],
 )
 def test_expressions(expression: Callable[[], Any], expected: Any) -> None:

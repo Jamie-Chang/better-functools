@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import (
-    TYPE_CHECKING,
     Any,
     Callable,
     Concatenate,
@@ -36,27 +35,35 @@ R = TypeVar("R")
 Ts = TypeVarTuple("Ts")
 
 
-class apply(Generic[T_APPLY]):
+class apply(Generic[T, R]):
     """Make a function callable by using `@` operator.
 
     This is the `@` version of `... | fn` in `better_functools.pipe.Composition`.
 
     >>> "1234" @ apply(int)
     1234
+
+    prepending with `~` will return the null coalescing version.
+
+    >>> None @ ~apply(int) is None
+    True
     """
 
-    def __init__(self, fn: T_APPLY) -> None:
+    def __init__(self, fn: Callable[[T], R]) -> None:
         self.fn = fn
 
-    if TYPE_CHECKING:
-        __call__: T_APPLY
-        __rmatmul__: T_APPLY
-    else:
+    def __call__(self, val: T) -> R:
+        return self.fn(val)
 
-        def __call__(self, *args, **kwargs):
-            return self.fn(*args, **kwargs)
+    __rmatmul__ = __call__
 
-        __rmatmul__ = __call__
+    def __invert__(self) -> apply[T | None, R | None]:
+        def _fn(v: T | None) -> R | None:
+            if v is None:
+                return None
+            return self.fn(v)
+
+        return apply(_fn)
 
 
 @dataclass
@@ -235,7 +242,7 @@ None
 """
 
 
-def static(fn: Callable[Concatenate[T, P], R]) -> Callable[P, apply[Callable[[T], R]]]:
+def static(fn: Callable[Concatenate[T, P], R]) -> Callable[P, apply[T, R]]:
     """*Experimental*: Make a bound method static.
 
     This makes it easier to chain the method.
@@ -259,7 +266,7 @@ def static(fn: Callable[Concatenate[T, P], R]) -> Callable[P, apply[Callable[[T]
     - Does not work well with MyPy.
     """
 
-    def _outer(*args: P.args, **kwargs: P.kwargs) -> apply[Callable[[T], R]]:
+    def _outer(*args: P.args, **kwargs: P.kwargs) -> apply[T, R]:
         @apply
         def _inner(first: T) -> R:
             return fn(first, *args, **kwargs)
